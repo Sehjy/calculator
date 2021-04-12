@@ -33,14 +33,14 @@ h1 {
 	align-items: center;
 	flex-direction: column;
 	height: 30%;
-	padding: 0.5rem;
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;
 }
 
 .screenM {
 	display: flex;
 	justify-content: flex-end;
+	padding: 0.5rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
 	width: 100%;
 	height: 75%;
 }
@@ -48,17 +48,22 @@ h1 {
 .screenS {
 	display: flex;
 	justify-content: flex-end;
+	padding: 0.5rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
 	width: 100%;
 	height: 25%;
 }
 
 .mainS {
 	color: white;
-	font-size: 4rem;
+    font-size: 6vh;
+    text-align: center;
+
 }
 
 .subS {
-	font-size: 2rem;
+	font-size: 2vh;
 	color: white;
 }
 
@@ -105,13 +110,13 @@ h1 {
 	background-color: orange;
 }
 
-#zero {
-	border-radius: 5rem;
-	width: 46.67%;
-}
-
 .btn:hover {
 	transition: all 0.1 ease;
 	transform: scale(1.1);
 	border: 0.5px solid rgb(204, 204, 204);
+}
+
+[value="zero"] {
+	border-radius: 5rem;
+	width: 46.67%;
 }
