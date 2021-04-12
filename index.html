@@ -4,44 +4,51 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Calculator</title>
-		<script src="calc.js"></script>
-		<link href="style.css" rel="stylesheet" />
+		<link href="./style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<h1>Calculator</h1>
 		<div class="calc">
-			<div class="screen"></div>
+			<div class="screen">
+				<div class="screenM">
+					<text class="mainS">0</text>
+				</div>
+				<div class="screenS">
+					<text class="subS"></text>
+				</div>
+			</div>
 			<div class="btn-container">
 				<div class="clr-del">
 					<button class="btn" id="clr">C</button>
 					<button class="btn" id="del">Del</button>
 					<button class="btn" id="plneg">+/-</button>
-					<button class="btn" id="divi">÷</button>
+					<button class="btn" id="ops" value="÷">÷</button>
 				</div>
 				<div class="num-row1">
-					<button class="btn" id="1">1</button>
-					<button class="btn" id="2">2</button>
-					<button class="btn" id="3">3</button>
-					<button class="btn" id="mul">×</button>
+					<button class="btn" id="num">1</button>
+					<button class="btn" id="num">2</button>
+					<button class="btn" id="num">3</button>
+					<button class="btn" id="ops" value="×">×</button>
 				</div>
 				<div class="num-row2">
-					<button class="btn" id="4">4</button>
-					<button class="btn" id="5">5</button>
-					<button class="btn" id="6">6</button>
-					<button class="btn" id="min">-</button>
+					<button class="btn" id="num">4</button>
+					<button class="btn" id="num">5</button>
+					<button class="btn" id="num">6</button>
+					<button class="btn" id="ops" value="-">-</button>
 				</div>
 				<div class="num-row3">
-					<button class="btn" id="7">7</button>
-					<button class="btn" id="8">8</button>
-					<button class="btn" id="9">9</button>
-					<button class="btn" id="add">+</button>
+					<button class="btn" id="num">7</button>
+					<button class="btn" id="num">8</button>
+					<button class="btn" id="num">9</button>
+					<button class="btn" id="ops" value="+">+</button>
 				</div>
 				<div class="bot-btns">
 					<button class="btn" id="zero">0</button>
 					<button class="btn" id="deci">.</button>
-					<button class="btn" id="equal">=</button>
+					<button class="btn" id="ops" value="=">=</button>
 				</div>
 			</div>
 		</div>
+		<script src="./calc.js"></script>
 	</body>
 </html>
