@@ -22,6 +22,7 @@ var opSave = "";
 var input = false;
 var validInput = false;
 var equatedAns = false;
+var cleared = true;
 var beforeDel = "";
 
 var opVals = new Array();
@@ -35,13 +36,18 @@ for (let i = 0; i < opsBtns.length; i++) {
 
 btns.forEach((button) =>
 	button.addEventListener("click", function (e) {
+		if (button !== deleteBtn && button !== cleanBtn) {
+			cleared = false;
+		}
+
 		//if clear button is clicked, restart calc
 		if (button === cleanBtn) {
+			cleared = true;
 			clear();
 		}
 
 		//if delete button is clicked, run del func
-		else if (button == deleteBtn && equatedAns !== true) {
+		else if (button == deleteBtn && equatedAns !== true && cleared !== true) {
 			del();
 		}
 
@@ -54,7 +60,10 @@ btns.forEach((button) =>
 			num2 = parseFloat(display.textContent);
 			equate(opSave, num1, num2);
 			equatedAns = true;
-		} else if (button.textContent === "+/-") {
+		}
+
+		//if -1* number is clicked, return current display * -1
+		else if (button.textContent === "+/-") {
 			display.textContent = plusMinus(parseFloat(display.textContent));
 		}
 
@@ -64,22 +73,27 @@ btns.forEach((button) =>
 			button.textContent !== "=" &&
 			input === true
 		) {
-			if (
-				opVals.includes(
-					display.textContent.substring(display.textContent.length - 1)
-				)
-			) {
-				display.textContent = display.textContent.slice(0, -1);
-			}
+			//if post a delete, there is an operator present, replace operator with current operator
+			// if (
+			// 	opVals.includes(
+			// 		display.textContent.substring(display.textContent.length - 1)
+			// 	)
+			// ) {
+			// 	display.textContent = display.textContent.slice(0, -1);
+			// }
 
+			//if there is some num1 value prev stored and there is current and operator save and there has been no answer equated thus far
+			//multiply
 			if (typeof num1 === typeof 0 && opSave !== "" && equatedAns === false) {
 				num2 = parseFloat(display.textContent);
 				equate(opSave, num1, num2);
-				//else set num1 to display value
 				num1 = parseFloat(display.textContent);
 				equatedAns = true;
 				opSave = button.textContent;
-			} else {
+			}
+
+			//if there is not a prev value stored
+			else {
 				//else set num1 to display value
 				num1 = parseFloat(display.textContent);
 				equatedAns = false;
@@ -111,6 +125,8 @@ btns.forEach((button) =>
 			} else {
 				displayVal(button.textContent);
 			}
+		} else if (button.textContent === ".") {
+			display.textContent += ".";
 		}
 	})
 );
@@ -144,8 +160,8 @@ function displayVal(x) {
 		display.textContent = x;
 	}
 	//if input is an operator, add input this far into bottom screen and say current input is valid
-	else if (opVals.includes(x)) {
-		displayS.textContent = display.textContent + " " + x;
+	else if (opVals.includes(x) && equatedAns !== true) {
+		displayS.textContent = parseFloat(display.textContent) + " " + x;
 		display.textContent = 0;
 		validInput = true;
 	}
@@ -157,7 +173,11 @@ function displayVal(x) {
 	}
 
 	//otherwise just append the current number
-	else {
+	else if (equatedAns === true) {
+		displayS.textContent = parseFloat(num1) + " " + opSave;
+		display.textContent = x;
+		equatedAns = false;
+	} else {
 		display.textContent += x;
 	}
 }
@@ -171,7 +191,7 @@ function equate(op, x, y) {
 		display.textContent = add(x, y);
 	} else if (op === "×") {
 		display.textContent = multiply(x, y);
-	} else {
+	} else if (op === "÷") {
 		if (y === 0) {
 			display.textContent = "chill out fam";
 			displayS.textContent = "";
@@ -187,6 +207,13 @@ function equate(op, x, y) {
 function del() {
 	//if the top display has values, begin to delete those first
 	if (display.textContent !== "" || display.textContent !== "0") {
+		if (
+			opVals.includes(
+				display.textContent.substring(display.textContent.length - 1)
+			)
+		) {
+			opSave = "";
+		}
 		//if the top display contains space, delete twice
 		if (display.textContent.substring(display.textContent.length - 1) === " ") {
 			display.textContent = display.textContent.slice(0, -1);
